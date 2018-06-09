@@ -62,7 +62,7 @@
 			$("#datosForm").append(divPregunta)
 			var codigo = index;
 			$.each(elem.respuestas, function(index,elem){
-				var radioRespuesta = `<input type="radio" name=${codigo} value="${codigo}"><label>${elem}</label>`
+				var radioRespuesta = `<input type="radio" name=${codigo} value="${codigo}${index}"><label>${elem}</label>`
 				var idDiv = "pregunta"+codigo;
 				$('#'+idDiv).append(radioRespuesta);
 			})
@@ -76,7 +76,7 @@
 		event.preventDefault();
 		//validación del select
 		var nacionalidad = $('#datosForm :selected').val();
-		console.log(nacionalidad);
+		//console.log(nacionalidad);
 		if(nacionalidad === "0"){
 			$('#errorPais').text("Debe seleccionar un país");
 			valido = false;
@@ -94,16 +94,25 @@
 			}else{
 				$('#error'+i).text('');
 			}
-			console.log(opcionSeleccionada)	
 		};
 
 		if(valido===false){
 			return
 		}else{
-			$("form").submit();
+			//$("form").submit();
+			recopilarDatos();
 		}
 	}
 
+	function recopilarDatos(){
+		var resultados = {};
+		resultados.pais = $('#datosForm :selected').val();
+		for(i=0;i<preguntas.length;i++){
+			var opcionResultado = $('input:radio[name='+i+']:checked').val();
+			resultados[i] = opcionResultado;
+		}console.log(resultados)
+	}
+	//Llamadas a funciones	
 	crearSelect();
 	crearOpciones(paisesArray);
 	crearPreguntas(preguntas);
