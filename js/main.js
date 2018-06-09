@@ -62,7 +62,7 @@
 			$("#datosForm").append(divPregunta)
 			var codigo = index;
 			$.each(elem.respuestas, function(index,elem){
-				var radioRespuesta = `<input type="radio" name=${codigo} value="${codigo}${index}"><label>${elem}</label>`
+				var radioRespuesta = `<input type="radio" name=${codigo} value="${elem}"><label>${elem}</label>`
 				var idDiv = "pregunta"+codigo;
 				$('#'+idDiv).append(radioRespuesta);
 			})
@@ -106,11 +106,12 @@
 
 	function recopilarDatos(){
 		var resultados = {};
-		resultados.pais = $('#datosForm :selected').val();
+		resultados.pais = $('#datosForm :selected').text();
+		console.log(resultados.pais)
 		for(i=0;i<preguntas.length;i++){
 			var opcionResultado = $('input:radio[name='+i+']:checked').val();
 			resultados[i] = opcionResultado;
-		}console.log(resultados)
+		}console.log(resultados);
 	}
 	//Llamadas a funciones	
 	crearSelect();
