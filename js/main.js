@@ -38,8 +38,8 @@
 	//Función para crear el select de objetos
 
 	function crearSelect(){
-		var selectPaises = `<label for="paises">País de residencia</label><select name="paises" id="paises"><option value="0">Seleccione una opción</option></select>`;
-		$('form').append(selectPaises);
+		var selectPaises = `<label for="paises">País de residencia</label><select name="paises" id="paises"><option value="0">Seleccione una opción</option></select><p id="errorPais">`;
+		$('#datosForm').append(selectPaises);
 	};
 
 	//Función para crear las opciones de país recorriendo el array
@@ -57,30 +57,54 @@
 		$.each(opciones,function(index,elem){
 			var divPregunta = 	`<div id="pregunta${index}" class="divPregunta">
 								<label for="enunciado${index}">${elem.pregunta}</label>
-								</div>`
-			$("form").append(divPregunta)
+								</div>
+								<p id="error${index}">`
+			$("#datosForm").append(divPregunta)
 			var codigo = index;
 			$.each(elem.respuestas, function(index,elem){
-				var radioRespuesta = `<input type="radio" name="enunciado${index} value=${codigo}"><label>${elem}</label>`
+				var radioRespuesta = `<input type="radio" name=${codigo} value="${codigo}"><label>${elem}</label>`
 				var idDiv = "pregunta"+codigo;
 				$('#'+idDiv).append(radioRespuesta);
 			})
-			
-			// var datoPregunta = elem.pregunta;
-			// console.log(datoPregunta)
-			// var labelPregunta = `<label for="enunciado${index}">${datoPregunta}</label>`;
-			// var codigoPregunta = elem.codigo;
-			// $('form').append(divPregunta);
-			// $("#0").append(labelPregunta);
-
-			// 
-			// 	console.log(radioRespuesta);
-				//divPregunta.append(radioRespuesta);
-			});
-
-	//	});
+		});
 	};
+
+	//Validación del formulario
+
+	function validar(event){
+		var valido = true;
+		event.preventDefault();
+		//validación del select
+		var nacionalidad = $('#datosForm :selected').val();
+		console.log(nacionalidad);
+		if(nacionalidad === "0"){
+			$('#errorPais').text("Debe seleccionar un país");
+			valido = false;
+		}else{
+			$('#errorPais').text("");
+		}
+
+		//chequear radio buttons
+		var traerPreguntas = $('.divPregunta')
+		for(i=0;i<preguntas.length;i++){
+			var opcionSeleccionada = $('input:radio[name='+i+']:checked').val();
+			if(!opcionSeleccionada){
+				valido=false;
+				$('#error'+i).text('Debe seleccionar una opción');
+			}else{
+				$('#error'+i).text('');
+			}
+			console.log(opcionSeleccionada)	
+		};
+
+		if(valido===false){
+			return
+		}else{
+			$("form").submit();
+		}
+	}
 
 	crearSelect();
 	crearOpciones(paisesArray);
 	crearPreguntas(preguntas);
+	$('button').on('click',validar);
