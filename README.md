@@ -2,5 +2,5 @@
 Trabajo práctico grupal
 Integrantes del grupo
 - Macarena García
-- Martina Gónzalez
+- Martina González
 - Lucía Wainfeld
