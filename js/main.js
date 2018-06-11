@@ -41,10 +41,11 @@ function recuperarResultados(){
 	}else{
   	datosParseados = JSON.parse(resultadosRecuperados);
   	arrayResultados = datosParseados.resultados;
-	}
-console.log(arrayResultados)
+  	//Creo filas por cada objeto guardado
+  	crearLista();
+	console.log(arrayResultados)
 }
-
+}
 //Función para crear el select de objetos
 
 function crearSelect(){
@@ -109,7 +110,7 @@ function validar(event){
 	if(valido===false){
 		return
 	}else{
-		//$("form").submit();
+		$("form").submit();
 		recopilarDatos();
 	}
 }
@@ -121,10 +122,14 @@ function recopilarDatos(){
 	console.log(resultados.pais)
 	for(i=0;i<preguntas.length;i++){
 		var opcionResultado = $('input:radio[name='+i+']:checked').val();
-		resultados[i] = opcionResultado;
+		var nombreResultado = "pregunta"+ i
+		console.log(nombreResultado)
+		resultados[nombreResultado] = opcionResultado;
 	}
 
-	arrayResultados.push(resultados)
+	arrayResultados.push(resultados);
+	//Creo la fila de la tabla
+	crearLista();
 	var objetoResultados = {
 		"resultados":arrayResultados,
 		"extension":arrayResultados.length
@@ -135,9 +140,19 @@ function recopilarDatos(){
 
 }
 
-	//Llamadas a funciones	
-	crearSelect();
-	crearOpciones(paisesArray);
-	crearPreguntas(preguntas);
-	recuperarResultados();
-	$('button').on('click',validar);
+//Crea la fila en la lista
+function crearLista(){
+	$('tbody').children().remove();
+	$.each(arrayResultados, function(index,elem){
+  		var fila = `<tr><td>${index}</td><td>${elem.pais}</td><td>${elem.pregunta0}</td><td>${elem.pregunta1}</td><td>${elem.pregunta2}</td><td>${elem.pregunta3}</td></tr>`
+  		$('table').append(fila);
+  		})
+	}
+
+
+//Llamadas a funciones	
+crearSelect();
+crearOpciones(paisesArray);
+crearPreguntas(preguntas);
+recuperarResultados();
+$('button').on('click',validar);
