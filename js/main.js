@@ -38,7 +38,7 @@
 	//Función para crear el select de objetos
 
 	function crearSelect(){
-		var selectPaises = `<label for="paises">País de residencia</label><select name="paises" id="paises"><option value="0">Seleccione una opción</option></select><p id="errorPais">`;
+		var selectPaises = `<label for="paises" class="label-paises">País de residencia</label><select name="paises" id="paises"><option value="0">Seleccione una opción</option></select><p id="errorPais">`;
 		$('#datosForm').append(selectPaises);
 	};
 
@@ -56,13 +56,13 @@
 	function crearPreguntas(opciones){
 		$.each(opciones,function(index,elem){
 			var divPregunta = 	`<div id="pregunta${index}" class="divPregunta">
-								<label for="enunciado${index}">${elem.pregunta}</label>
+								<label for="enunciado${index}" class="label-enunciado">${elem.pregunta}</label>
 								</div>
 								<p id="error${index}">`
 			$("#datosForm").append(divPregunta)
 			var codigo = index;
 			$.each(elem.respuestas, function(index,elem){
-				var radioRespuesta = `<input type="radio" name=${codigo} value="${elem}"><label>${elem}</label>`
+				var radioRespuesta = `<input type="radio" name=${codigo} class="option-input radio" value="${elem}"><label>${elem}</label>`
 				var idDiv = "pregunta"+codigo;
 				$('#'+idDiv).append(radioRespuesta);
 			})
