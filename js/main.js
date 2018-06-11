@@ -16,21 +16,25 @@ var preguntas = [
 {	
 	codigo:0,
 	pregunta:"¿Cuál es tu lenguaje de programación preferido?",
+	header:"Lenguaje favorito",
 	respuestas:["Javascript","Java","C#"]
 },
 {	
 	codigo:1,
 	pregunta:"¿Cuál es tu sistema operativo preferido?",
+	header:"Sistema operativo favorito",
 	respuestas:["Windows","Linux","Solaris"]
 },
 {	
 	codigo:2,
 	pregunta:"¿Qué editor de texto usás?",
+	header:"Editor de texto",
 	respuestas:["Sublime","Visual Studio","Atom"]
 },
 {	
 	codigo:3,
 	pregunta:"¿Cuál fue el primer lenguaje de programación que aprendiste?",
+	header:"Primer lenguaje aprendido",
 	respuestas:["Javascript","Java","C#"]
 }];
 
@@ -142,7 +146,16 @@ function recopilarDatos(){
 
 //Crea la fila en la lista
 function crearLista(){
+	var headerNumero =`<th>N°</th>`;
+	$('thead').append(headerNumero);
+	$.each(preguntas,function(index,elem){
+		var tableHeader = `<th>${elem.header}</th>`;
+		$('thead').append(tableHeader);
+	})
+	var headerPais = `<th>País de residencia</th>`
+	$('thead').append(headerPais);
 	$('tbody').children().remove();
+	
 	$.each(arrayResultados, function(index,elem){
   		var fila = `<tr><td>${index}</td><td>${elem.pais}</td><td>${elem.pregunta0}</td><td>${elem.pregunta1}</td><td>${elem.pregunta2}</td><td>${elem.pregunta3}</td></tr>`
   		$('table').append(fila);
