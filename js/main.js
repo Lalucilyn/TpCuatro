@@ -38,12 +38,7 @@ var preguntas = [
 	respuestas:["Javascript","Java","C#"]
 },
 
-{	
-	codigo:4,
-	pregunta:"¿Cuál fue el primer lenguaje de programación que aprendiste?",
-	header:"Primer lenguaje aprendido",
-	respuestas:["Javascript","Java","C#"]
-}];
+];
 
 function recuperarResultados(){
 	var resultadosRecuperados = localStorage.getItem("datosRecopilados");
@@ -128,16 +123,26 @@ function validar(event){
 
 
 function recopilarDatos(){
+	//El objeto resultados guarda todos los resultados de la encuesta
 	var resultados = {};
+	
+	//En resultados, se guarda el país seleccionado en el select
 	resultados.pais = $('#datosForm :selected').text();
-	console.log(resultados.pais)
+
+	//El array respuestasPreguntas, guarda cada pregunta y su respectiva respuesta como un objeto que se crea con el for de la línea 131
+	var respuestasPreguntas = [];
+
 	for(i=0;i<preguntas.length;i++){
-		var opcionResultado = $('input:radio[name='+i+']:checked').val();
-		var nombreResultado = "pregunta"+ i
-		console.log(nombreResultado)
-		resultados[nombreResultado] = opcionResultado;
+		var objetoPregunta = {};
+		//Para crear el objeto, tomo la pregunta correspondiente y el radio chequeado
+		var pregunta = $('input:radio[name='+i+']:checked').siblings('label[class="label-enunciado"]').text();
+		var respuesta = $('input:radio[name='+i+']:checked').val();
+		objetoPregunta.pregunta = pregunta;
+		objetoPregunta.respuesta = respuesta
+		respuestasPreguntas.push(objetoPregunta);
 	}
 
+	resultados.respuestas = respuestasPreguntas;
 	arrayResultados.push(resultados);
 	//Creo la fila de la tabla
 	crearLista();
@@ -153,22 +158,42 @@ function recopilarDatos(){
 
 //Crea la fila en la lista
 function crearLista(){
+	//Crea el header con número de orden
 	var headerNumero =`<th>N°</th>`;
+	//Crea el header de país de residencia
+	var headerPais = `<th>País de residencia</th>`
+	//Agrega número y país al head
 	$('thead').append(headerNumero);
+	$('thead').append(headerPais);
+	//Agrega un header por cada pregunta
 	$.each(preguntas,function(index,elem){
 		var tableHeader = `<th>${elem.header}</th>`;
 		$('thead').append(tableHeader);
 	})
-	var headerPais = `<th>País de residencia</th>`
-	$('thead').append(headerPais);
+
+	//Borra los datos que haya previamente en la lista para evitar duplicaciones
 	$('tbody').children().remove();
 	
+	//Función que crea las filas en la tabla
 	$.each(arrayResultados, function(index,elem){
-  		var fila = `<tr><td>${index}</td><td>${elem.pais}</td><td>${elem.pregunta0}</td><td>${elem.pregunta1}</td><td>${elem.pregunta2}</td><td>${elem.pregunta3}</td></tr>`
+  		//Crea la fila
+  		var fila = `<tr id="resultados${index}"></tr>`
   		$('table').append(fila);
-  		})
-	}
-
+  		//Crea el campo que lleva el N° de orden
+  		var num = `<td>${index}</td>`  
+  		$('#resultados'+index).append(num);
+  		//Crea el campo que lleva el país de origen
+  		var campoPais = `<td>${elem.pais}</td>`;  
+  		$('#resultados'+index).append(campoPais);
+  		//Crea un campo por cada respuesta a una pregunta 
+  		var respuestas = elem.respuestas;
+  		console.log(respuestas);
+  		for(i=0;i<respuestas.length;i++){
+  			var respuestaIndividual = respuestas[i].respuesta;
+  			var campoRespuesta = `<td>${respuestaIndividual}</td>`
+  			$('#resultados'+index).append(campoRespuesta);
+  		}
+	})}
 
 //Llamadas a funciones	
 crearSelect();
