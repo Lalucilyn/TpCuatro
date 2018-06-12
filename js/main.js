@@ -36,6 +36,13 @@ var preguntas = [
 	pregunta:"¿Cuál fue el primer lenguaje de programación que aprendiste?",
 	header:"Primer lenguaje aprendido",
 	respuestas:["Javascript","Java","C#"]
+},
+
+{	
+	codigo:4,
+	pregunta:"¿Cuál fue el primer lenguaje de programación que aprendiste?",
+	header:"Primer lenguaje aprendido",
+	respuestas:["Javascript","Java","C#"]
 }];
 
 function recuperarResultados(){
