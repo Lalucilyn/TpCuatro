@@ -1,17 +1,6 @@
 //Variables
 var arrayResultados;
-var paisesJSON = {
-"paises":[
-    {"nombre":"Argentina", "codigo":"AR"},
-    {"nombre":"Bolivia", "codigo":"BO"}, 
-    {"nombre":"Brasil", "codigo":"BR"},
-    {"nombre":"Chile", "codigo":"CL"},
-    {"nombre":"Paraguay", "codigo":"PY"},
-    {"nombre":"Uruguay", "codigo":"UY"},
-]
-};
 
-var paisesArray = paisesJSON.paises;
 var preguntas = [
 {	
 	codigo:0,
@@ -36,14 +25,8 @@ var preguntas = [
 	pregunta:"¿Cuál fue el primer lenguaje de programación que aprendiste?",
 	header:"Primer lenguaje aprendido",
 	respuestas:["Javascript","Java","C#"]
-},
-
-{	
-	codigo:4,
-	pregunta:"¿Cuál fue el primer lenguaje de programación que aprendiste?",
-	header:"Primer lenguaje aprendido",
-	respuestas:["Javascript","Java","C#"]
-}];
+}
+]
 
 function recuperarResultados(){
 	var resultadosRecuperados = localStorage.getItem("datosRecopilados");
@@ -62,6 +45,41 @@ function recuperarResultados(){
 function crearSelect(){
 	var selectPaises = `<label for="paises" class="label-paises">País de residencia</label><select name="paises" id="paises"><option value="0">Seleccione una opción</option></select><p id="errorPais">`;
 	$('#datosForm').append(selectPaises);
+};
+
+//Llamada Ajax para traer los países desde el servidor localHost
+
+function llamadaAjax(){
+	//Hace una llamada ajax al servidor local
+	$.ajax({
+	    url: "http://localhost:3000/",
+	    type: "get",
+	    //Si se puede conectar, trae los países desde localhost y crea las options con esos datos
+	    success: function (response) {
+	        if(response){
+	            console.log(response);
+	            var paises = JSON.parse(response);
+	            crearOpciones(paises.paises);      
+	        }else{
+	            console.log("No hay países para mostrar");
+	        }       
+	    },
+	    //Si no se puede conectar, usa los países que tiene cargados
+	    error: function(response) {
+	   		console.log("no se pudo cargar el servidor")
+	    	var paisesJSON = {
+			"paises":[
+    			{"nombre":"Argentina", "codigo":"AR"},
+    			{"nombre":"Bolivia", "codigo":"BO"}, 
+    			{"nombre":"Brasil", "codigo":"BR"},
+    			{"nombre":"Chile", "codigo":"CL"},
+    			{"nombre":"Paraguay", "codigo":"PY"},
+    			{"nombre":"Uruguay", "codigo":"UY"},
+			]};
+			var paisesArray = paisesJSON.paises; 
+			crearOpciones(paisesArray); 
+		}
+	}); 
 };
 
 //Función para crear las opciones de país recorriendo el array
@@ -126,7 +144,6 @@ function validar(event){
 	}
 }
 
-
 function recopilarDatos(){
 	var resultados = {};
 	resultados.pais = $('#datosForm :selected').text();
@@ -155,12 +172,13 @@ function recopilarDatos(){
 function crearLista(){
 	var headerNumero =`<th>N°</th>`;
 	$('thead').append(headerNumero);
+	var headerPais = `<th>País de residencia</th>`
+	$('thead').append(headerPais);
 	$.each(preguntas,function(index,elem){
 		var tableHeader = `<th>${elem.header}</th>`;
 		$('thead').append(tableHeader);
 	})
-	var headerPais = `<th>País de residencia</th>`
-	$('thead').append(headerPais);
+	
 	$('tbody').children().remove();
 	
 	$.each(arrayResultados, function(index,elem){
@@ -172,7 +190,7 @@ function crearLista(){
 
 //Llamadas a funciones	
 crearSelect();
-crearOpciones(paisesArray);
+llamadaAjax();
 crearPreguntas(preguntas);
 recuperarResultados();
 $('button').on('click',validar);
