@@ -9,6 +9,10 @@
 	position: relative;
 }
 
+h1 {
+	margin-left: 30px;
+}
+
 .label-paises,
 .label-enunciado {
 	display: block;
@@ -16,11 +20,16 @@
 	margin: 5px;
 }
 
+.label-paises {
+	margin-left: 20px;
+}
+
 select {
 	padding: 6px 16px;
 	font-size: 14px;
 	border-radius: 6px;
 	cursor: pointer;
+	margin-left: 20px;
 }
 
 div p {
@@ -31,6 +40,7 @@ div p {
 }
 
 button {
+	margin: 20px;
 	height: 40px;
 	text-align: center;
 	width: 130px;
@@ -50,6 +60,10 @@ button {
 button:hover {
 	color: white;
 	background-color: #40e0d0;
+}
+
+.divPregunta label {
+	margin: 5px;
 }
 
 .option-input {
@@ -75,6 +89,7 @@ button:hover {
 	outline: none;
 	position: relative;
 	z-index: 1000;
+	margin: 10px;
 }
 
 .option-input:hover {
