@@ -175,7 +175,7 @@ function recopilarDatos(){
 
 //Crea la fila en la lista
 function crearLista(){
-	var headerNumero =`<th>N°</th>`;
+	var headerNumero =`<th id="">N°</th>`;
 	$('thead').append(headerNumero);
 	var headerPais = `<th>País de residencia</th>`
 	$('thead').append(headerPais);

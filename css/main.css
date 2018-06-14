@@ -7,6 +7,8 @@
 .container {
 	display: block;
 	position: relative;
+	width:90%;
+	margin:0 auto;
 }
 
 h1 {
@@ -164,6 +166,7 @@ button:hover {
 }
 
 select {
+	margin-left:0px;
 	padding: 6px 16px;
 	font-size: 14px;
 	border-radius: 6px;
@@ -301,4 +304,28 @@ button:hover {
 
 #selectDiv {
 	display:flex;
+}
+
+/**/
+.label-paises {
+	padding-left:5px;
+	margin:10px;
+}
+
+table {
+	table-layout:fixed;
+	width:95% !important;
+	margin:0 auto;
+}
+
+#num {
+	width:30px;
+}
+
+th {
+	padding:0 5px;
+}
+
+.divPregunta {
+	padding-bottom:20px;
 }
