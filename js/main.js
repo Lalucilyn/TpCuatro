@@ -43,8 +43,11 @@ function recuperarResultados(){
 //Función para crear el select de objetos
 
 function crearSelect(){
-	var selectPaises = `<label for="paises" class="label-paises">País de residencia</label><select name="paises" id="paises"><option value="0">Seleccione una opción</option></select><p id="errorPais">`;
+	var selectPaises = `<label for="paises" class="label-paises">País de residencia</label><div id=selectDiv><select name="paises" id="paises"><option value="0">Seleccione una opción</option></select><div id=spinner class=spinner></div></div><p id="errorPais">`;
 	$('#datosForm').append(selectPaises);
+	var spinner = ``
+	console.log(spinner)
+	$('#datosForm').append(spinner);
 };
 
 //Llamada Ajax para traer los países desde el servidor localHost
@@ -60,6 +63,7 @@ function llamadaAjax(){
 	            console.log(response);
 	            var paises = JSON.parse(response);
 	            crearOpciones(paises.paises);      
+	            $('#spinner').remove();
 	        }else{
 	            console.log("No hay países para mostrar");
 	        }       
@@ -77,6 +81,7 @@ function llamadaAjax(){
     			{"nombre":"Uruguay", "codigo":"UY"},
 			]};
 			var paisesArray = paisesJSON.paises; 
+			$('#spinner').remove();
 			crearOpciones(paisesArray); 
 		}
 	}); 
