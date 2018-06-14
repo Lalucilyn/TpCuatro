@@ -145,3 +145,160 @@ button:hover {
 		opacity: 0;
 	}
 }
+* {
+	font-family: 'Open Sans', sans-serif;
+	margin: 10px;
+	box-sizing: border-box;
+}
+
+.container {
+	display: block;
+	position: relative;
+}
+
+.label-paises,
+.label-enunciado {
+	display: block;
+	font-weight: bold;
+	margin: 5px;
+}
+
+select {
+	padding: 6px 16px;
+	font-size: 14px;
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+div p {
+	text-transform: uppercase;
+	font-size: 10px;
+	color: red;
+	position: relative;
+}
+
+button {
+	height: 40px;
+	text-align: center;
+	width: 130px;
+	border-radius: 40px;
+	background: #fff;
+	border: 2px solid #40e0d0;
+	color: #40e0d0;
+	letter-spacing: 1px;
+	text-shadow: 0;
+	cursor: pointer;
+	font: {
+		size: 14px;
+		weight: bold;
+	}
+}
+
+button:hover {
+	color: white;
+	background-color: #40e0d0;
+}
+
+.option-input {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-ms-appearance: none;
+	-o-appearance: none;
+	appearance: none;
+	position: relative;
+	top: 13.33333px;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	height: 20px;
+	width: 20px;
+	transition: all 0.15s ease-out 0s;
+	background: #cbd1d8;
+	border: none;
+	color: #fff;
+	cursor: pointer;
+	display: inline-block;
+	margin-right: 0.5rem;
+	outline: none;
+	position: relative;
+	z-index: 1000;
+}
+
+.option-input:hover {
+	background: #9faab7;
+}
+
+.option-input:checked {
+	background: #40e0d0;
+}
+
+.option-input:checked::before {
+	height: 20px;
+	width: 20px;
+	position: absolute;
+	content: '✔';
+	display: inline-block;
+	font-size: 12px;
+	text-align: center;
+	line-height: 20px;
+}
+
+.option-input:checked::after {
+	-webkit-animation: click-wave 0.65s;
+	-moz-animation: click-wave 0.65s;
+	animation: click-wave 0.65s;
+	background: #40e0d0;
+	content: '';
+	display: block;
+	position: relative;
+	z-index: 100;
+}
+
+.option-input.radio {
+	border-radius: 50%;
+}
+
+.option-input.radio::after {
+	border-radius: 50%;
+}
+
+@keyframes click-wave {
+	0% {
+		height: 20px;
+		width: 20px;
+		opacity: 0.35;
+		position: relative;
+	}
+	100% {
+		height: 200px;
+		width: 200px;
+		margin-left: -80px;
+		margin-top: -80px;
+		opacity: 0;
+	}
+}
+
+/*Spinner*/
+.spinner{
+    width: 25px;
+    height: 25px;
+    
+    border: 2px solid #f3f3f3;
+    border-top:3px solid black;
+    border-radius: 100%;
+    
+  
+    animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+    from{
+        transform: rotate(0deg);
+    }to{
+        transform: rotate(360deg);
+    }
+}
+
+#selectDiv {
+	display:flex;
+}
