@@ -9,7 +9,6 @@ var paises = {
     {"nombre":"Chile", "codigo":"CL"},
     {"nombre":"Paraguay", "codigo":"PY"},
     {"nombre":"Uruguay", "codigo":"UY"},
-    {"nombre":"Felicidonia", "codigo":"FA"}
 ]
 }
 
